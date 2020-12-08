@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacle.avoid.config.GameConfig;
 import com.obstacle.avoid.entity.Player;
 import com.obstacle.avoid.utils.ViewportUtils;
+import com.obstacle.avoid.utils.debug.DebugCameraController;
 
 public class GameScreen implements Screen {
 
@@ -20,6 +21,7 @@ public class GameScreen implements Screen {
     private Viewport viewport;
     private ShapeRenderer renderer;
     private Player player;
+    private DebugCameraController debugCameraController;
 
     //используем его для инициализации нашей игры и загружайте ресурсы
     @Override
@@ -27,17 +29,28 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
         renderer = new ShapeRenderer();
+
         // create player
         player = new Player();
         // calculate position
-        float startPlayerX = GameConfig.WORLD_WIDTH / 2;
-        float startPlayerY = 1;
+//        float startPlayerX = GameConfig.WORLD_WIDTH / 2;
+//        float startPlayerY = 1;
+        float startPlayerX = 12f;
+        float startPlayerY = 12f;
         // position player
         player.setPosition(startPlayerX, startPlayerY);
+
+        // create debug camera controller
+        debugCameraController = new DebugCameraController();
+        debugCameraController.setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y);
     }
 
     @Override
     public void render(float delta) {
+        //camera control
+        debugCameraController.handleDebugInput(delta);
+        debugCameraController.applyTo(camera);
+
         // update world
         update(delta);
 
