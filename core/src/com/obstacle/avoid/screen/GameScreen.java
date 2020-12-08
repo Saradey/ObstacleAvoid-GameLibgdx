@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacle.avoid.config.GameConfig;
@@ -12,6 +13,8 @@ import com.obstacle.avoid.entity.Player;
 import com.obstacle.avoid.utils.ViewportUtils;
 
 public class GameScreen implements Screen {
+
+    private static final Logger log = new Logger(GameScreen.class.getName(), Logger.DEBUG);
 
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -35,9 +38,23 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        // update world
+        update(delta);
+
+        //clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        //render debug
         renderDebug();
+    }
+
+    private void update(float delta) {
+        updatePlayer();
+    }
+
+    private void updatePlayer() {
+        player.update();
     }
 
     private void renderDebug() {
