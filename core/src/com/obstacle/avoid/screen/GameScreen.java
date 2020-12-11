@@ -42,7 +42,7 @@ public class GameScreen implements Screen {
     private int lives = GameConfig.LIVES_START;
     private float scoreTimer;
     private int score;
-    private int displayScore;
+    private int displayScore = 0;
 
     //используем его для инициализации нашей игры и загружайте ресурсы
     @Override
@@ -110,24 +110,30 @@ public class GameScreen implements Screen {
     }
 
     private void update(float delta) {
+        if(gameIsOver()) {
+            log.debug("Game Over");
+            return;
+        }
         updatePlayer();
         updateObstacles(delta);
         updateScore(delta);
         updateDisplayScore(delta);
-
         if (isPlayerCollidingWithObstacle()) {
             log.debug("Collision detected.");
             lives--;
         }
     }
 
+    private boolean gameIsOver() {
+        return lives <= 0;
+    }
+
     private boolean isPlayerCollidingWithObstacle() {
         for (Obstacle obstacle : obstacles) {
-            if (obstacle.isPlayerColliding(player)) {
+            if (obstacle.isNotHit() && obstacle.isPlayerColliding(player)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -207,7 +213,7 @@ public class GameScreen implements Screen {
         if(displayScore < score) {
             displayScore = Math.min(
                     score,
-                    displayScore + (int)(40 * delta)
+                    displayScore + (int)(60 * delta)
             );
         }
     }
