@@ -47,4 +47,8 @@ public abstract class GameObjectBase {
     public void updateBounds() {
         bounds.setPosition(x, y);
     }
+
+    public Circle getBounds() {
+        return bounds;
+    }
 }

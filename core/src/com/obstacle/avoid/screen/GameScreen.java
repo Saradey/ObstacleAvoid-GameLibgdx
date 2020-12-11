@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
     private DebugCameraController debugCameraController;
     private Array<Obstacle> obstacles = new Array<Obstacle>();
     private float obstacleTimer;
+    private boolean alive = true;
 
     //используем его для инициализации нашей игры и загружайте ресурсы
     @Override
@@ -55,7 +56,9 @@ public class GameScreen implements Screen {
         debugCameraController.applyTo(camera);
 
         // update world
-        update(delta);
+        if(alive) {
+            update(delta);
+        }
 
         //clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -68,7 +71,19 @@ public class GameScreen implements Screen {
     private void update(float delta) {
         updatePlayer();
         updateObstacles(delta);
-        blockPlayerFromLeavingTheWorld();
+        if(isPlayerCollidingWithObstacle()) {
+            alive = false;
+        }
+    }
+
+    private boolean isPlayerCollidingWithObstacle() {
+        for(Obstacle obstacle : obstacles) {
+            if(obstacle.isPlayerColliding(player)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void updateObstacles(float delta) {
@@ -107,6 +122,7 @@ public class GameScreen implements Screen {
 
     private void updatePlayer() {
         player.update();
+        blockPlayerFromLeavingTheWorld();
     }
 
     private void renderDebug() {

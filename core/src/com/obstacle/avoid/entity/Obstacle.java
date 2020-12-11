@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 
 /**
  * Created by goran on 23/08/2016.
@@ -25,5 +26,11 @@ public class Obstacle extends GameObjectBase {
 
     public float getWidth() {
         return SIZE;
+    }
+
+    public boolean isPlayerColliding(Player player) {
+        Circle playerBounds = player.getBounds();
+        // check if playerBounds overlap obstacle bounds
+        return Intersector.overlaps(playerBounds, getBounds());
     }
 }
