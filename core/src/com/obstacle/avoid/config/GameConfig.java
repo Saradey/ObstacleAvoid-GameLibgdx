@@ -27,6 +27,8 @@ public class GameConfig {
 
     public static final int LIVES_START = 3;
 
+    public static final float SCORE_MAX_TIME = 1.25f; // add score every interval
+
     private GameConfig() {
     }
 }

@@ -40,6 +40,8 @@ public class GameScreen implements Screen {
     private final GlyphLayout layout = new GlyphLayout();
 
     private int lives = GameConfig.LIVES_START;
+    private float scoreTimer;
+    private int score;
 
     //используем его для инициализации нашей игры и загружайте ресурсы
     @Override
@@ -92,10 +94,16 @@ public class GameScreen implements Screen {
 
         String livesText = "LIVES: " + lives;
         layout.setText(font, livesText);
-
         font.draw(batch, livesText,
                 20,
                 GameConfig.HUD_HEIGHT - layout.height);
+
+        String scoreText = "SCORE: " + score;
+        layout.setText(font, scoreText);
+        font.draw(batch, scoreText,
+                GameConfig.HUD_WIDTH - layout.width - 20,
+                GameConfig.HUD_HEIGHT - layout.height
+        );
 
         batch.end();
     }
@@ -103,6 +111,8 @@ public class GameScreen implements Screen {
     private void update(float delta) {
         updatePlayer();
         updateObstacles(delta);
+        updateScore(delta);
+
         if (isPlayerCollidingWithObstacle()) {
             log.debug("Collision detected.");
             lives--;
@@ -180,6 +190,15 @@ public class GameScreen implements Screen {
         viewport.update(width, height, true);
         hudViewport.update(width, height, true);
         ViewportUtils.debugPixelPerUnit(viewport);
+    }
+
+    private void updateScore(float delta) {
+        scoreTimer += delta;
+
+        if (scoreTimer >= GameConfig.SCORE_MAX_TIME) {
+            score += MathUtils.random(1, 5);
+            scoreTimer = 0.0f;
+        }
     }
 
     @Override
