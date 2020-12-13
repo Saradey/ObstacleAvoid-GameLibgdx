@@ -29,6 +29,11 @@ public class GameConfig {
 
     public static final float SCORE_MAX_TIME = 1.25f; // add score every interval
 
+
+    public static final float EASY_OBSTACLE_SPEED = 0.1f;
+    public static final float MEDIUM_OBSTACLE_SPEED = 0.15f;
+    public static final float HARD_OBSTACLE_SPEED = 0.18f;
+
     private GameConfig() {
     }
 }

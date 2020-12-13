@@ -2,6 +2,7 @@ package com.obstacle.avoid.entity;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.obstacle.avoid.config.DifficultyLevel;
 
 /**
  * Created by goran on 23/08/2016.
@@ -11,7 +12,7 @@ public class Obstacle extends GameObjectBase {
     private static final float BOUNDS_RADIUS = 0.3f; // world units
     private static final float SIZE = 2 * BOUNDS_RADIUS;
 
-    private float ySpeed = 0.1f;
+    private float ySpeed = DifficultyLevel.EASY.getObstacleSpeed();
     private boolean hit = false;
 
     public Obstacle() {
@@ -36,5 +37,9 @@ public class Obstacle extends GameObjectBase {
 
     public boolean isNotHit() {
         return !hit;
+    }
+
+    public void setySpeed(float ySpeed) {
+        this.ySpeed = ySpeed;
     }
 }

@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacle.avoid.assets.AssetPaths;
+import com.obstacle.avoid.config.DifficultyLevel;
 import com.obstacle.avoid.config.GameConfig;
 import com.obstacle.avoid.entity.Obstacle;
 import com.obstacle.avoid.entity.Player;
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
     private ShapeRenderer renderer;
     private Player player;
     private DebugCameraController debugCameraController;
-    private Array<Obstacle> obstacles = new Array<Obstacle>();
+    private final Array<Obstacle> obstacles = new Array<Obstacle>();
     private float obstacleTimer;
 
     //Ui камера
@@ -43,6 +44,8 @@ public class GameScreen implements Screen {
     private float scoreTimer;
     private int score;
     private int displayScore = 0;
+    private final DifficultyLevel difficultyLevel = DifficultyLevel.MEDIUM;
+
 
     //используем его для инициализации нашей игры и загружайте ресурсы
     @Override
@@ -155,6 +158,7 @@ public class GameScreen implements Screen {
             float obstacleY = GameConfig.WORLD_HEIGHT;
 
             Obstacle obstacle = new Obstacle();
+            obstacle.setySpeed(difficultyLevel.getObstacleSpeed());
             obstacle.setPosition(obstacleX, obstacleY);
 
             obstacles.add(obstacle);
