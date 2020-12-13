@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacle.avoid.assets.AssetPaths;
 import com.obstacle.avoid.config.GameConfig;
+import com.obstacle.avoid.entity.Obstacle;
 import com.obstacle.avoid.utils.ViewportUtils;
 import com.obstacle.avoid.utils.debug.DebugCameraController;
 
@@ -32,9 +33,11 @@ public class GameRenderer implements Disposable {
     private BitmapFont font;
     private final GlyphLayout layout = new GlyphLayout();
     private DebugCameraController debugCameraController;
+    private final GameController controller;
 
     // == constructors ==
-    public GameRenderer() {
+    public GameRenderer(GameController controller) {
+        this.controller = controller;
         init();
     }
 
@@ -90,7 +93,7 @@ public class GameRenderer implements Disposable {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
 
-        String livesText = "LIVES: " + lives;
+        String livesText = "LIVES: " + controller.getLives();
         layout.setText(font, livesText);
 
         font.draw(batch, livesText,
@@ -98,7 +101,7 @@ public class GameRenderer implements Disposable {
                 GameConfig.HUD_HEIGHT - layout.height
         );
 
-        String scoreText = "SCORE: " + displayScore;
+        String scoreText = "SCORE: " + controller.getDisplayScore();
         layout.setText(font, scoreText);
 
         font.draw(batch, scoreText,
@@ -122,9 +125,9 @@ public class GameRenderer implements Disposable {
     }
 
     private void drawDebug() {
-        player.drawDebug(renderer);
+        controller.getPlayer().drawDebug(renderer);
 
-        for (Obstacle obstacle : obstacles) {
+        for (Obstacle obstacle : controller.getObstacles()) {
             obstacle.drawDebug(renderer);
         }
     }

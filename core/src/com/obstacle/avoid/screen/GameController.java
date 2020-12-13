@@ -136,4 +136,19 @@ public class GameController {
         }
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Array<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getDisplayScore() {
+        return displayScore;
+    }
 }
