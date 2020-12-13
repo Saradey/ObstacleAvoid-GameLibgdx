@@ -51,4 +51,5 @@ public abstract class GameObjectBase {
     public Circle getBounds() {
         return bounds;
     }
+
 }

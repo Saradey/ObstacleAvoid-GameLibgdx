@@ -90,6 +90,8 @@ public class GameRenderer implements Disposable {
     // == private methods ==
 
     private void renderUi() {
+        //ЭТО ВАЖНО
+        hudViewport.apply();
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
 
@@ -113,7 +115,8 @@ public class GameRenderer implements Disposable {
     }
 
     private void renderDebug() {
-
+        //ЭТО ВАЖНО
+        viewport.apply();
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
 

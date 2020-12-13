@@ -98,14 +98,23 @@ public class GameController {
         }
 
         createNewObstacle(delta);
+        removePassedObstacles();
+    }
+
+    private void removePassedObstacles() {
+        if(obstacles.size > 0) {
+            if(obstacles.first().getY() < -obstacles.first().getSize()) {
+                obstacles.removeValue(obstacles.first(), true);
+            }
+        }
     }
 
     private void createNewObstacle(float delta) {
         obstacleTimer += delta;
 
         if (obstacleTimer >= GameConfig.OBSTACLE_SPAWN_TIME) {
-            float min = 0f;
-            float max = GameConfig.WORLD_WIDTH;
+            float min = Obstacle.SIZE / 2;
+            float max = GameConfig.WORLD_WIDTH - Obstacle.SIZE / 2;
             float obstacleX = MathUtils.random(min, max);
             float obstacleY = GameConfig.WORLD_HEIGHT;
 

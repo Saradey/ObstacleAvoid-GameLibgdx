@@ -10,7 +10,7 @@ import com.obstacle.avoid.config.DifficultyLevel;
 public class Obstacle extends GameObjectBase {
 
     private static final float BOUNDS_RADIUS = 0.3f; // world units
-    private static final float SIZE = 2 * BOUNDS_RADIUS;
+    public static final float SIZE = 2 * BOUNDS_RADIUS;
 
     private float ySpeed = DifficultyLevel.EASY.getObstacleSpeed();
     private boolean hit = false;
@@ -41,5 +41,9 @@ public class Obstacle extends GameObjectBase {
 
     public void setySpeed(float ySpeed) {
         this.ySpeed = ySpeed;
+    }
+
+    public float getSize() {
+        return SIZE;
     }
 }
