@@ -44,4 +44,12 @@ public class Obstacle extends GameObjectBase implements Pool.Poolable {
     public void reset() {
         hit = false;
     }
+
+    public float getWidth() {
+        return SIZE;
+    }
+
+    public float getHeight() {
+        return SIZE;
+    }
 }
