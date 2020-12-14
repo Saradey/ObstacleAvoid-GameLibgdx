@@ -2,18 +2,19 @@ package com.obstacle.avoid.entity;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.utils.Pool;
 import com.obstacle.avoid.config.DifficultyLevel;
 
 /**
  * Created by goran on 23/08/2016.
  */
-public class Obstacle extends GameObjectBase {
+public class Obstacle extends GameObjectBase implements Pool.Poolable {
 
     private static final float BOUNDS_RADIUS = 0.3f; // world units
     public static final float SIZE = 2 * BOUNDS_RADIUS;
 
-    private float ySpeed = DifficultyLevel.EASY.getObstacleSpeed();
-    private boolean hit = false;
+    private float ySpeed = DifficultyLevel.MEDIUM.getObstacleSpeed();
+    private boolean hit;
 
     public Obstacle() {
         super(BOUNDS_RADIUS);
@@ -21,10 +22,6 @@ public class Obstacle extends GameObjectBase {
 
     public void update() {
         setY(getY() - ySpeed);
-    }
-
-    public float getWidth() {
-        return SIZE;
     }
 
     public boolean isPlayerColliding(Player player) {
@@ -43,7 +40,8 @@ public class Obstacle extends GameObjectBase {
         this.ySpeed = ySpeed;
     }
 
-    public float getSize() {
-        return SIZE;
+    @Override
+    public void reset() {
+        hit = false;
     }
 }

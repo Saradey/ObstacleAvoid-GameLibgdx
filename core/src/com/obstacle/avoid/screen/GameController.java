@@ -3,6 +3,8 @@ package com.obstacle.avoid.screen;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Logger;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
 import com.obstacle.avoid.config.DifficultyLevel;
 import com.obstacle.avoid.config.GameConfig;
 import com.obstacle.avoid.entity.Obstacle;
@@ -24,7 +26,8 @@ public class GameController {
     private int lives = GameConfig.LIVES_START;
     private int score;
     private int displayScore;
-    private DifficultyLevel difficultyLevel = DifficultyLevel.MEDIUM;
+    private DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+    private Pool<Obstacle> obstaclePool;
 
     // == constructors ==
     public GameController() {
@@ -42,6 +45,9 @@ public class GameController {
 
         // position player
         player.setPosition(startPlayerX, startPlayerY);
+
+        // create obstacle pool
+        obstaclePool = Pools.get(Obstacle.class, 40);
     }
 
     // == public methods ==
@@ -64,7 +70,7 @@ public class GameController {
 
     // == private methods ==
     private boolean isGameOver() {
-        return lives <= 0;
+        return false;
     }
 
     private boolean isPlayerCollidingWithObstacle() {
@@ -103,8 +109,10 @@ public class GameController {
 
     private void removePassedObstacles() {
         if(obstacles.size > 0) {
-            if(obstacles.first().getY() < -obstacles.first().getSize()) {
-                obstacles.removeValue(obstacles.first(), true);
+            Obstacle first = obstacles.first();
+            if(first.getY() < -Obstacle.SIZE) {
+                obstacles.removeValue(first, true);
+                obstaclePool.free(first);
             }
         }
     }
@@ -118,7 +126,7 @@ public class GameController {
             float obstacleX = MathUtils.random(min, max);
             float obstacleY = GameConfig.WORLD_HEIGHT;
 
-            Obstacle obstacle = new Obstacle();
+            Obstacle obstacle = obstaclePool.obtain();
             obstacle.setySpeed(difficultyLevel.getObstacleSpeed());
             obstacle.setPosition(obstacleX, obstacleY);
 
