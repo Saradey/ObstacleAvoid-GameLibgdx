@@ -178,7 +178,6 @@ public class GameScreenOld implements Screen {
     }
 
     private void updatePlayer() {
-        player.update();
         blockPlayerFromLeavingTheWorld();
     }
 

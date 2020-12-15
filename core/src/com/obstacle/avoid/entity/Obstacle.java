@@ -5,20 +5,20 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Pool;
 import com.obstacle.avoid.config.DifficultyLevel;
 
+import static com.obstacle.avoid.config.GameConfig.OBSTACLE_BOUNDS_RADIUS;
+import static com.obstacle.avoid.config.GameConfig.OBSTACLE_SIZE;
+
 /**
  * Created by goran on 23/08/2016.
  */
 public class Obstacle extends GameObjectBase implements Pool.Poolable {
 
-    private static final float BOUNDS_RADIUS = 0.3f; // world units
-    public static final float SIZE = 2 * BOUNDS_RADIUS;
-
     private float ySpeed = DifficultyLevel.MEDIUM.getObstacleSpeed();
     private boolean hit;
 
     public Obstacle() {
-        super(BOUNDS_RADIUS);
-        setSize(SIZE, SIZE);
+        super(OBSTACLE_BOUNDS_RADIUS);
+        setSize(OBSTACLE_SIZE, OBSTACLE_SIZE);
     }
 
     public void update() {

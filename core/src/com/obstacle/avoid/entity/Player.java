@@ -19,16 +19,4 @@ public class Player extends GameObjectBase {
         setSize(PLAYER_SIZE, PLAYER_SIZE);
     }
 
-    public void update() {
-        float xSpeed = 0;
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            xSpeed = GameConfig.MAX_PLAYER_X_SPEED;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            xSpeed = -GameConfig.MAX_PLAYER_X_SPEED;
-        }
-
-        setX(getX() + xSpeed);
-        updateBounds();
-    }
 }
