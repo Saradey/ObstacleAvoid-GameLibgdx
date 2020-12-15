@@ -18,6 +18,7 @@ public class Obstacle extends GameObjectBase implements Pool.Poolable {
 
     public Obstacle() {
         super(BOUNDS_RADIUS);
+        setSize(SIZE, SIZE);
     }
 
     public void update() {
@@ -45,11 +46,4 @@ public class Obstacle extends GameObjectBase implements Pool.Poolable {
         hit = false;
     }
 
-    public float getWidth() {
-        return SIZE;
-    }
-
-    public float getHeight() {
-        return SIZE;
-    }
 }

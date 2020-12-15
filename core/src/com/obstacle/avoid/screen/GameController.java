@@ -42,8 +42,8 @@ public class GameController {
         player = new Player();
 
         // calculate position
-        float startPlayerX = GameConfig.WORLD_WIDTH / 2f;
-        float startPlayerY = 1;
+        float startPlayerX = (GameConfig.WORLD_WIDTH - GameConfig.PLAYER_SIZE) / 2f;
+        float startPlayerY = 1 - (GameConfig.PLAYER_SIZE / 2);
 
         // position player
         player.setPosition(startPlayerX, startPlayerY);
@@ -98,8 +98,8 @@ public class GameController {
     private void blockPlayerFromLeavingTheWorld() {
         float playerX = MathUtils.clamp(
                 player.getX(), // value
-                player.getWidth() / 2f, // min
-                GameConfig.WORLD_WIDTH - player.getWidth() / 2f // max
+                0, // min
+                GameConfig.WORLD_WIDTH - player.getWidth() // max
         );
 
         player.setPosition(playerX, player.getY());

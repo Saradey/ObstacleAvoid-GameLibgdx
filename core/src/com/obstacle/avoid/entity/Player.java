@@ -6,16 +6,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.obstacle.avoid.config.GameConfig;
 
+import static com.obstacle.avoid.config.GameConfig.PLAYER_BOUNDS_RADIUS;
+import static com.obstacle.avoid.config.GameConfig.PLAYER_SIZE;
+
 /**
  * Created by goran on 23/08/2016.
  */
 public class Player extends GameObjectBase {
 
-    private static final float BOUNDS_RADIUS = 0.4f; // world units
-    private static final float SIZE = 2 * BOUNDS_RADIUS;
-
     public Player() {
-        super(BOUNDS_RADIUS);
+        super(PLAYER_BOUNDS_RADIUS);
+        setSize(PLAYER_SIZE, PLAYER_SIZE);
     }
 
     public void update() {
@@ -29,14 +30,5 @@ public class Player extends GameObjectBase {
 
         setX(getX() + xSpeed);
         updateBounds();
-    }
-
-
-    public float getWidth() {
-        return SIZE;
-    }
-
-    public float getHeight() {
-        return SIZE;
     }
 }
