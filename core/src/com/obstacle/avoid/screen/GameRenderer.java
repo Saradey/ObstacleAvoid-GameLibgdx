@@ -46,7 +46,7 @@ public class GameRenderer implements Disposable, InputProcessor {
     private Texture obstacleTexture;
     private Texture backgroundTexture;
 
-    private boolean renderDebug = true;
+    private boolean renderDebug = false;
     private boolean renderAssets = true;
     private boolean gameIsPause = false;
 
