@@ -18,8 +18,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        controller.update(delta);
-        renderer.render(delta);
+        if(!renderer.getGameIsPause()) {
+            controller.update(delta);
+            renderer.render(delta);
+        }
     }
 
     @Override

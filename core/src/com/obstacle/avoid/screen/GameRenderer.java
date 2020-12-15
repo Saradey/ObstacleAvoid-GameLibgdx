@@ -1,6 +1,8 @@
 package com.obstacle.avoid.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,7 +26,7 @@ import com.obstacle.avoid.utils.debug.DebugCameraController;
 /**
  * Created by goran on 27/08/2016.
  */
-public class GameRenderer implements Disposable {
+public class GameRenderer implements Disposable, InputProcessor {
 
     // == attributes ==
     private OrthographicCamera camera;
@@ -43,6 +45,10 @@ public class GameRenderer implements Disposable {
     private Texture playerTexture;
     private Texture obstacleTexture;
     private Texture backgroundTexture;
+
+    private boolean renderDebug = true;
+    private boolean renderAssets = true;
+    private boolean gameIsPause = false;
 
     // == constructors ==
     public GameRenderer(GameController controller) {
@@ -68,6 +74,7 @@ public class GameRenderer implements Disposable {
         playerTexture = new Texture(Gdx.files.internal("gameplay/player.png"));
         obstacleTexture = new Texture(Gdx.files.internal("gameplay/obstacle.png"));
         backgroundTexture = new Texture(Gdx.files.internal("gameplay/background.png"));
+        Gdx.input.setInputProcessor(this);
     }
 
     // == public methods ==
@@ -76,7 +83,7 @@ public class GameRenderer implements Disposable {
         debugCameraController.handleDebugInput(delta);
         debugCameraController.applyTo(camera);
 
-        if(Gdx.input.isTouched() && !controller.isGameOver()) {
+        if (Gdx.input.isTouched() && !controller.isGameOver()) {
             Vector2 screenTouch = new Vector2(Gdx.input.getX(), Gdx.input.getY());
             Vector2 worldTouch = viewport.unproject(screenTouch);
 
@@ -89,14 +96,17 @@ public class GameRenderer implements Disposable {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderGamePlay();
-
+        if (renderAssets) {
+            renderGamePlay();
+        }
 
         // render ui/hud
         renderUi();
 
         // render debug graphics
-        renderDebug();
+        if (renderDebug) {
+            renderDebug();
+        }
     }
 
     // == private methods ==
@@ -192,5 +202,65 @@ public class GameRenderer implements Disposable {
         playerTexture.dispose();
         obstacleTexture.dispose();
         backgroundTexture.dispose();
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case Input.Keys.R:
+
+                break;
+            case Input.Keys.C:
+                renderDebug = !renderDebug;
+                break;
+
+            case Input.Keys.V:
+                renderAssets = !renderAssets;
+                break;
+
+            case Input.Keys.SPACE:
+                gameIsPause = !gameIsPause;
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
+    }
+
+    public boolean getGameIsPause() {
+        return gameIsPause;
     }
 }
