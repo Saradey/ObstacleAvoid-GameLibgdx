@@ -197,4 +197,14 @@ public class GameController {
     public Background getBackground() {
         return background;
     }
+
+    public void restartGame() {
+        restart();
+        obstacleTimer = 0;
+        scoreTimer = 0;
+        lives = GameConfig.LIVES_START;
+        score = 0;
+        displayScore = 0;
+        difficultyLevel = DifficultyLevel.EASY;
+    }
 }

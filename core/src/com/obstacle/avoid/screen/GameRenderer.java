@@ -209,7 +209,7 @@ public class GameRenderer implements Disposable, InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.R:
-
+                controller.restartGame();
                 break;
             case Input.Keys.C:
                 renderDebug = !renderDebug;
