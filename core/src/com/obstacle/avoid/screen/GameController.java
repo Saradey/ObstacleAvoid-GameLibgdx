@@ -97,7 +97,6 @@ public class GameController {
                 return true;
             }
         }
-
         return false;
     }
 
