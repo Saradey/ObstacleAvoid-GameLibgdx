@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacle.avoid.assets.AssetDescriptors;
-import com.obstacle.avoid.assets.AssetPaths;
 import com.obstacle.avoid.config.GameConfig;
 import com.obstacle.avoid.entity.Background;
 import com.obstacle.avoid.entity.Obstacle;
@@ -93,7 +92,7 @@ public class GameRenderer implements Disposable, InputProcessor {
             Vector2 worldTouch = viewport.unproject(screenTouch);
 
             Player player = controller.getPlayer();
-            worldTouch.x = MathUtils.clamp(worldTouch.x, 0, GameConfig.WORLD_HEIGHT - player.getWidth());
+            worldTouch.x = MathUtils.clamp(worldTouch.x, player.getWidth() / 2, GameConfig.WORLD_WIDTH - player.getWidth() / 2) - player.getWidth() / 2;
             player.setX(worldTouch.x);
         }
 
@@ -152,7 +151,6 @@ public class GameRenderer implements Disposable, InputProcessor {
     }
 
     // == private methods ==
-
     private void renderUi() {
         //ЭТО ВАЖНО
         hudViewport.apply();
