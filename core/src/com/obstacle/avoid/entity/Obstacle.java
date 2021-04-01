@@ -27,7 +27,7 @@ public class Obstacle extends GameObjectBase implements Pool.Poolable {
 
     public boolean isPlayerColliding(Player player) {
         Circle playerBounds = player.getBounds();
-        // check if playerBounds overlap obstacle bounds
+        // проверить столкновение
         boolean overlaps = Intersector.overlaps(playerBounds, getBounds());
         hit = overlaps;
         return overlaps;

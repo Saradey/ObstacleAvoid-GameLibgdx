@@ -37,11 +37,12 @@ public class DebugCameraController {
     public void applyTo(OrthographicCamera camera) {
         camera.position.set(position, 0);
         camera.zoom = zoom;
+        //для того что бы применять изменения к камере нужно вызывать update
         camera.update();
     }
 
     public void handleDebugInput(float delta) {
-        // check if we are not on desktop then dont handle input just return
+        // камерой можно управлять только в десктопной версии
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
             return;
         }

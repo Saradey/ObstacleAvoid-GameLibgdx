@@ -23,6 +23,9 @@ public class GameController {
 
     // == attributes ==
     private Player player;
+    //специальный класс для использования вместо стандартных Java коллекций, таких как ArrayList.
+    // Проблема с ними в том, что они производят мусор различными способами. Класс Array
+    // пытается минимизировать мусор в максимально возможной степени.
     private Array<Obstacle> obstacles = new Array<Obstacle>();
     private float obstacleTimer;
     private float scoreTimer;
@@ -30,6 +33,8 @@ public class GameController {
     private int score;
     private int displayScore;
     private DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+    //Создает объект и если он не нужен, высвобождает но держит в памяти
+    //таким образом мы не трахаем garbage collector
     private Pool<Obstacle> obstaclePool;
     private Background background;
     private final float startPlayerX = (GameConfig.WORLD_WIDTH - GameConfig.PLAYER_SIZE) / 2f;
@@ -102,6 +107,7 @@ public class GameController {
 
     private void updatePlayer() {
         float xSpeed = 0;
+        //для проверки нажатия
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             xSpeed = GameConfig.MAX_PLAYER_X_SPEED;
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -113,6 +119,7 @@ public class GameController {
     }
 
     private void blockPlayerFromLeavingTheWorld() {
+        //игрок не может выйти за пределы мира
         float playerX = MathUtils.clamp(
                 player.getX(), // value
                 0, // min
@@ -135,6 +142,7 @@ public class GameController {
         if (obstacles.size > 0) {
             Obstacle first = obstacles.first();
             if (first.getY() < -GameConfig.OBSTACLE_SIZE) {
+                //удаляем Obstacle если он вышел за пределы игрового экрана
                 obstacles.removeValue(first, true);
                 obstaclePool.free(first);
             }
@@ -150,10 +158,13 @@ public class GameController {
             float obstacleX = MathUtils.random(min, max);
             float obstacleY = GameConfig.WORLD_HEIGHT;
 
+            //Возвращает объект из этого пула. Объект может быть новым или повторно использованным
+            //что бы не дрочить GC
             Obstacle obstacle = obstaclePool.obtain();
             obstacle.setySpeed(difficultyLevel.getObstacleSpeed());
             obstacle.setPosition(obstacleX, obstacleY);
 
+            //из массива удаляется но ссылка остается в пуле
             obstacles.add(obstacle);
             obstacleTimer = 0f;
         }
@@ -169,6 +180,7 @@ public class GameController {
     }
 
     private void updateDisplayScore(float delta) {
+        //для плавного начисление очков бонуса
         if (displayScore < score) {
             displayScore = Math.min(
                     score,

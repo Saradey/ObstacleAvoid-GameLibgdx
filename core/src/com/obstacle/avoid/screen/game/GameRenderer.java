@@ -32,19 +32,29 @@ import com.obstacle.avoid.utils.debug.DebugCameraController;
 public class GameRenderer implements Disposable, InputProcessor {
 
     // == attributes ==
+    //камера которая предоставляет матрицу проекции саму игру
     private OrthographicCamera camera;
+    //для расстягивания картинок и экрана самой игры
     private Viewport viewport;
+    //для дебаг отрисовки примитивов
     private ShapeRenderer renderer;
 
+    //для отрисовки ui
     private OrthographicCamera hudCamera;
+
+    //для расстягивания экрана ui
     private Viewport hudViewport;
 
+    //подготавливает текстуры и загружает в openGl где они отрисовываются
     private SpriteBatch batch;
+    //для отрисвоки текста
     private BitmapFont font;
+    //для замеров размера текста
     private final GlyphLayout layout = new GlyphLayout();
     private DebugCameraController debugCameraController;
     private final GameController controller;
 
+    //его предоставляет TextureAtlas, то есть TextureRegion это вырезка из общей текстуры
     private TextureRegion playerRegion;
     private TextureRegion obstacleRegion;
     private TextureRegion backgroundRegion;
@@ -69,6 +79,7 @@ public class GameRenderer implements Disposable, InputProcessor {
         renderer = new ShapeRenderer();
 
         hudCamera = new OrthographicCamera();
+        //расстягивает так что если соотношения разные будут черные полосы внизу или верху
         hudViewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT, hudCamera);
         batch = new SpriteBatch();
         font = assetManager.get(AssetDescriptors.FONT);
@@ -77,6 +88,7 @@ public class GameRenderer implements Disposable, InputProcessor {
         debugCameraController = new DebugCameraController();
         debugCameraController.setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y);
 
+        //содержит в себе большую текстуру и может предоставлять регионы и спрайты
         TextureAtlas gamePlayAtlas = assetManager.get(AssetDescriptors.GAME_PLAY);
 
         playerRegion = gamePlayAtlas.findRegion(RegionNames.PLAYER);
@@ -96,15 +108,18 @@ public class GameRenderer implements Disposable, InputProcessor {
         debugCameraController.applyTo(camera);
 
         if (Gdx.input.isTouched() && !controller.isGameOver()) {
+            //берем нажатие координат на экран
             Vector2 screenTouch = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+            //берем нажатие координат в игровом мире
             Vector2 worldTouch = viewport.unproject(screenTouch);
 
             Player player = controller.getPlayer();
+            //перемещаем игрока при этом ограничиваем его размерами игрового мира
             worldTouch.x = MathUtils.clamp(worldTouch.x, player.getWidth() / 2, GameConfig.WORLD_WIDTH - player.getWidth() / 2) - player.getWidth() / 2;
             player.setX(worldTouch.x);
         }
 
-        // clear screen
+        //отчищает скрин
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -124,7 +139,9 @@ public class GameRenderer implements Disposable, InputProcessor {
 
     // == private methods ==
     private void renderGamePlay() {
+        //Применяет видовой экран к камере и устанавливает glViewport.
         viewport.apply();
+        //подготавливаем матрицу проекции
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
@@ -149,11 +166,11 @@ public class GameRenderer implements Disposable, InputProcessor {
                     obstacle.getWidth(), obstacle.getHeight()
             );
         }
-
         batch.end();
     }
 
     public void resize(int width, int height) {
+        //нужно обязщательно оповещать viewport об изменениях размеров экрана
         viewport.update(width, height, true);
         hudViewport.update(width, height, true);
         ViewportUtils.debugPixelPerUnit(viewport);
@@ -163,12 +180,14 @@ public class GameRenderer implements Disposable, InputProcessor {
     private void renderUi() {
         //ЭТО ВАЖНО
         hudViewport.apply();
+        //подготавливаем матрицу проекции
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
 
         String livesText = "LIVES: " + controller.getLives();
         layout.setText(font, livesText);
 
+        //отрисовка текста
         font.draw(batch, livesText,
                 20,
                 GameConfig.HUD_HEIGHT - layout.height
@@ -177,6 +196,7 @@ public class GameRenderer implements Disposable, InputProcessor {
         String scoreText = "SCORE: " + controller.getDisplayScore();
         layout.setText(font, scoreText);
 
+        //отрисовка текста
         font.draw(batch, scoreText,
                 GameConfig.HUD_WIDTH - layout.width - 20,
                 GameConfig.HUD_HEIGHT - layout.height
@@ -208,12 +228,15 @@ public class GameRenderer implements Disposable, InputProcessor {
 
     @Override
     public void dispose() {
+        //обзательно освобождать ресурсы
         renderer.dispose();
         batch.dispose();
     }
 
     @Override
     public boolean keyDown(int keycode) {
+        //обработка нажатий на клавиши не так часто срабатывает как если бы мы отлавливали
+        //нажатия в методе render
         switch (keycode) {
             case Input.Keys.R:
                 controller.restartGame();

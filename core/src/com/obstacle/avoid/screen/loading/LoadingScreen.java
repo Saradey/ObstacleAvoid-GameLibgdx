@@ -16,6 +16,7 @@ import com.obstacle.avoid.screen.game.GameScreen;
 
 /**
  * Created by goran on 31/08/2016.
+ * экран загрузки
  */
 public class LoadingScreen extends ScreenAdapter {
 
@@ -67,6 +68,7 @@ public class LoadingScreen extends ScreenAdapter {
 
         viewport.apply();
         renderer.setProjectionMatrix(camera.combined);
+        //закрашивания внутри примитивов
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(Color.WHITE);
 
@@ -102,6 +104,7 @@ public class LoadingScreen extends ScreenAdapter {
         // progress is between 0 and 1
         progress = assetManager.getProgress();
 
+        //update загрузка ресурсов
         if (assetManager.update()) {
             waitTime -= delta;
 

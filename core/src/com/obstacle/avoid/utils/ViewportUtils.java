@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Created by goran on 22/08/2016.
  */
 public class ViewportUtils {
-
+    //для логов
     private static final Logger log = new Logger(ViewportUtils.class.getName(), Logger.DEBUG);
 
     private static final int DEFAULT_CELL_SIZE = 1;
@@ -18,6 +18,7 @@ public class ViewportUtils {
         drawGrid(viewport, renderer, DEFAULT_CELL_SIZE);
     }
 
+    //здесь происходит отрисовка линий при помощи ShapeRenderer
     public static void drawGrid(Viewport viewport, ShapeRenderer renderer, int cellSize) {
         // validate parameters/arguments
         if (viewport == null) {
@@ -32,7 +33,7 @@ public class ViewportUtils {
             cellSize = DEFAULT_CELL_SIZE;
         }
 
-        // copy old color from render
+        // скопировали цвет из ShapeRenderer
         Color oldColor = new Color(renderer.getColor());
 
         int worldWidth = (int) viewport.getWorldWidth();
@@ -40,6 +41,7 @@ public class ViewportUtils {
         int doubleWorldWidth = worldWidth * 2;
         int doubleWorldHeight = worldHeight * 2;
 
+        //задает матрицу проекции это нужно делать для отрисовки
         renderer.setProjectionMatrix(viewport.getCamera().combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.WHITE);
@@ -74,9 +76,11 @@ public class ViewportUtils {
             throw new IllegalArgumentException("viewport param is required.");
         }
 
+        //отдает реальные размеры
         float screenWidth = viewport.getScreenWidth();
         float screenHeight = viewport.getScreenHeight();
 
+        //отдает размеры мира
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 

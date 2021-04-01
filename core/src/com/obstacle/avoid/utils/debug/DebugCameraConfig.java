@@ -90,6 +90,7 @@ public class DebugCameraConfig {
 
     private void load() {
         try {
+            //позволяет парсить json файлы
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 

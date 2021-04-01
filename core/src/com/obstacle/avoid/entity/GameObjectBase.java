@@ -10,6 +10,7 @@ public abstract class GameObjectBase {
 
     private float x;
     private float y;
+    //для отрисовки в дебаге и проверки столкновений
     private Circle bounds;
     private float width = 1;
     private float height = 1;

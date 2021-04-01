@@ -4,6 +4,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 /**
  * Created by goran on 31/08/2016.
+ * Типо пакера берет картинки и склеивает все
  */
 public class AssetPacker {
 

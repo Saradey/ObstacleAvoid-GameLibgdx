@@ -1,7 +1,6 @@
 package com.obstacle.avoid.assets;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -10,11 +9,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public class AssetDescriptors {
 
+    //дескрипторы для описания ресурсов
     public static final AssetDescriptor<BitmapFont> FONT =
             new AssetDescriptor<BitmapFont>(AssetPaths.UI_FONT, BitmapFont.class);
 
+    //дескрипторы для описания ресурсов
     public static final AssetDescriptor<TextureAtlas> GAME_PLAY =
             new AssetDescriptor<TextureAtlas>(AssetPaths.GAME_PLAY, TextureAtlas.class);
 
-    private AssetDescriptors() {}
+    private AssetDescriptors() {
+    }
 }
