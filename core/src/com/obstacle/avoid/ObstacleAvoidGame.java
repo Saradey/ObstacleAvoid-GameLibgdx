@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.obstacle.avoid.screen.loading.LoadingScreen;
 
@@ -13,6 +14,9 @@ public class ObstacleAvoidGame extends Game {
     //показывать прогресс загрузки и стопать поток пока ресурсы не загрузятся
     private AssetManager assetManager;
 
+    //подготавливает текстуры и загружает в openGl где они отрисовываются
+    private SpriteBatch batch;
+
     @Override
     public void create() {
         //для дебагинга
@@ -20,6 +24,7 @@ public class ObstacleAvoidGame extends Game {
 
         assetManager = new AssetManager();
         assetManager.getLogger().setLevel(Logger.DEBUG);
+        batch = new SpriteBatch();
 
         //так стартует первый скрин
         setScreen(new LoadingScreen(this));
@@ -34,5 +39,9 @@ public class ObstacleAvoidGame extends Game {
 
     public AssetManager getAssetManager() {
         return assetManager;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
     }
 }

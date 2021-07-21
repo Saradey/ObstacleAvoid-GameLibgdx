@@ -45,8 +45,6 @@ public class GameRenderer implements Disposable, InputProcessor {
     //для расстягивания экрана ui
     private Viewport hudViewport;
 
-    //подготавливает текстуры и загружает в openGl где они отрисовываются
-    private SpriteBatch batch;
     //для отрисвоки текста
     private BitmapFont font;
     //для замеров размера текста
@@ -65,10 +63,13 @@ public class GameRenderer implements Disposable, InputProcessor {
 
     private final AssetManager assetManager;
 
+    private final SpriteBatch batch;
+
     // == constructors ==
-    public GameRenderer(AssetManager assetManager, GameController controller) {
+    public GameRenderer(SpriteBatch batch, AssetManager assetManager, GameController controller) {
         this.assetManager = assetManager;
         this.controller = controller;
+        this.batch = batch;
         init();
     }
 
@@ -81,7 +82,6 @@ public class GameRenderer implements Disposable, InputProcessor {
         hudCamera = new OrthographicCamera();
         //расстягивает так что если соотношения разные будут черные полосы внизу или верху
         hudViewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT, hudCamera);
-        batch = new SpriteBatch();
         font = assetManager.get(AssetDescriptors.FONT);
 
         // create debug camera controller
@@ -230,7 +230,6 @@ public class GameRenderer implements Disposable, InputProcessor {
     public void dispose() {
         //обзательно освобождать ресурсы
         renderer.dispose();
-        batch.dispose();
     }
 
     @Override
