@@ -27,33 +27,19 @@ import com.obstacle.avoid.common.GameManager;
 import com.obstacle.avoid.config.DifficultyLevel;
 import com.obstacle.avoid.config.GameConfig;
 
-public class OptionsScreen extends ScreenAdapter {
+public class OptionsScreen extends MenuScreenBase {
 
     private static final Logger log = new Logger(OptionsScreen.class.getName(), Logger.DEBUG);
 
-    private final ObstacleAvoidGame game;
-    private final AssetManager assetManager;
-
-    private Viewport viewport;
-    private Stage stage;
     private Image checkMark;
 
     public OptionsScreen(ObstacleAvoidGame game) {
-        this.game = game;
-        assetManager = game.getAssetManager();
+        super(game);
     }
+
 
     @Override
-    public void show() {
-        viewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT);
-        stage = new Stage(viewport, game.getBatch());
-
-        Gdx.input.setInputProcessor(stage);
-
-        createUi();
-    }
-
-    private void createUi() {
+    protected Actor createUi(){
         Table table = new Table();
         table.defaults().pad(15);
 
@@ -127,37 +113,14 @@ public class OptionsScreen extends ScreenAdapter {
             }
         });
 
-        stage.addActor(background);
-        stage.addActor(label);
-        stage.addActor(easy);
-        stage.addActor(medium);
-        stage.addActor(hard);
-        stage.addActor(checkMark);
-        stage.addActor(back);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-    }
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act();
-        stage.draw();
-    }
-
-    @Override
-    public void hide() {
-        dispose();
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
+        table.addActor(background);
+        table.addActor(label);
+        table.addActor(easy);
+        table.addActor(medium);
+        table.addActor(hard);
+        table.addActor(checkMark);
+        table.addActor(back);
+        return table;
     }
 
     private void back() {
