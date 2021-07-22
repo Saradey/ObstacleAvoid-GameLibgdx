@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.obstacle.avoid.ObstacleAvoidGame;
 import com.obstacle.avoid.assets.AssetDescriptors;
+import com.obstacle.avoid.screen.menu.MenuScreen;
 
 /**
  * Created by goran on 27/08/2016.
@@ -32,6 +33,9 @@ public class GameScreen implements Screen {
         if(!renderer.getGameIsPause()) {
             controller.update(delta);
             renderer.render(delta);
+        }
+        if(controller.isGameOver()) {
+            game.setScreen(new MenuScreen(game));
         }
     }
 
