@@ -23,6 +23,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacle.avoid.ObstacleAvoidGame;
 import com.obstacle.avoid.assets.AssetDescriptors;
 import com.obstacle.avoid.assets.RegionNames;
+import com.obstacle.avoid.common.GameManager;
+import com.obstacle.avoid.config.DifficultyLevel;
 import com.obstacle.avoid.config.GameConfig;
 
 public class OptionsScreen extends ScreenAdapter {
@@ -72,6 +74,7 @@ public class OptionsScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 checkMark.setY(easy.getY() + 25);
+                GameManager.INSTANCE.updateDifficulty(DifficultyLevel.EASY);
             }
         });
 
@@ -81,6 +84,7 @@ public class OptionsScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 checkMark.setY(medium.getY() + 25);
+                GameManager.INSTANCE.updateDifficulty(DifficultyLevel.MEDIUM);
             }
         });
 
@@ -90,12 +94,25 @@ public class OptionsScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 checkMark.setY(hard.getY() + 25);
+                GameManager.INSTANCE.updateDifficulty(DifficultyLevel.HARD);
             }
         });
 
         TextureRegion checkMarkRegion = uiAtlas.findRegion(RegionNames.CHECK_MARK);
         checkMark = new Image(new TextureRegionDrawable(checkMarkRegion));
-        checkMark.setPosition(medium.getX() + 50, medium.getY() + 40, Align.center);
+        checkMark.setX(medium.getX() + 30);
+        DifficultyLevel difficultyLevel = GameManager.INSTANCE.getDifficultyLevel();
+        switch (difficultyLevel) {
+            case EASY:
+                checkMark.setY(easy.getY() + 25);
+                break;
+            case HARD:
+                checkMark.setY(hard.getY() + 25);
+                break;
+            case MEDIUM:
+                checkMark.setY(medium.getY() + 25);
+                break;
+        }
 
         ImageButton back = new ImageButton(
                 new TextureRegionDrawable(uiAtlas.findRegion(RegionNames.BACK)),

@@ -33,7 +33,6 @@ public class GameController {
     private int lives = GameConfig.LIVES_START;
     private int score;
     private int displayScore;
-    private DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
     //Создает объект и если он не нужен, высвобождает но держит в памяти
     //таким образом мы не трахаем garbage collector
     private Pool<Obstacle> obstaclePool;
@@ -163,6 +162,7 @@ public class GameController {
             //Возвращает объект из этого пула. Объект может быть новым или повторно использованным
             //что бы не дрочить GC
             Obstacle obstacle = obstaclePool.obtain();
+            DifficultyLevel difficultyLevel = GameManager.INSTANCE.getDifficultyLevel();
             obstacle.setySpeed(difficultyLevel.getObstacleSpeed());
             obstacle.setPosition(obstacleX, obstacleY);
 
@@ -218,6 +218,5 @@ public class GameController {
         lives = GameConfig.LIVES_START;
         score = 0;
         displayScore = 0;
-        difficultyLevel = DifficultyLevel.EASY;
     }
 }
