@@ -1,8 +1,6 @@
 package com.obstacle.avoid.assets;
 
-/**
- * Created by goran on 31/08/2016.
- */
+
 public class RegionNames {
 
     // == gameplay atlas ==

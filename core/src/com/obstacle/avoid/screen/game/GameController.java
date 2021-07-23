@@ -14,9 +14,7 @@ import com.obstacle.avoid.entity.Background;
 import com.obstacle.avoid.entity.Obstacle;
 import com.obstacle.avoid.entity.Player;
 
-/**
- * Created by goran on 27/08/2016.
- */
+
 public class GameController {
 
     // == constants ==

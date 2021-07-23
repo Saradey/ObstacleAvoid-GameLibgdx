@@ -8,9 +8,7 @@ import com.obstacle.avoid.config.DifficultyLevel;
 import static com.obstacle.avoid.config.GameConfig.OBSTACLE_BOUNDS_RADIUS;
 import static com.obstacle.avoid.config.GameConfig.OBSTACLE_SIZE;
 
-/**
- * Created by goran on 23/08/2016.
- */
+
 public class Obstacle extends GameObjectBase implements Pool.Poolable {
 
     private float ySpeed = DifficultyLevel.MEDIUM.getObstacleSpeed();

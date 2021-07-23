@@ -8,9 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Logger;
 
-/**
- * Created by goran on 24/08/2016.
- */
+
 public class DebugCameraController {
 
     // == constants ==

@@ -26,9 +26,7 @@ import com.obstacle.avoid.entity.Player;
 import com.obstacle.avoid.utils.ViewportUtils;
 import com.obstacle.avoid.utils.debug.DebugCameraController;
 
-/**
- * Created by goran on 27/08/2016.
- */
+
 public class GameRenderer implements Disposable, InputProcessor {
 
     // == attributes ==

@@ -6,9 +6,7 @@ import com.obstacle.avoid.ObstacleAvoidGame;
 import com.obstacle.avoid.assets.AssetDescriptors;
 import com.obstacle.avoid.screen.menu.MenuScreen;
 
-/**
- * Created by goran on 27/08/2016.
- */
+
 public class GameScreen implements Screen {
 
     private GameController controller;

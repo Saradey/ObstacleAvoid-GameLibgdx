@@ -1,8 +1,6 @@
 package com.obstacle.avoid.config;
 
-/**
- * Created by goran on 27/08/2016.
- */
+
 public enum DifficultyLevel {
     EASY(GameConfig.EASY_OBSTACLE_SPEED),
     MEDIUM(GameConfig.MEDIUM_OBSTACLE_SPEED),

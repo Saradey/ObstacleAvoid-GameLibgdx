@@ -9,9 +9,7 @@ import com.obstacle.avoid.config.GameConfig;
 import static com.obstacle.avoid.config.GameConfig.PLAYER_BOUNDS_RADIUS;
 import static com.obstacle.avoid.config.GameConfig.PLAYER_SIZE;
 
-/**
- * Created by goran on 23/08/2016.
- */
+
 public class Player extends GameObjectBase {
 
     public Player() {

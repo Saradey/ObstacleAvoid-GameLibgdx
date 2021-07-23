@@ -16,7 +16,6 @@ import com.obstacle.avoid.screen.game.GameScreen;
 import com.obstacle.avoid.screen.menu.MenuScreen;
 
 /**
- * Created by goran on 31/08/2016.
  * экран загрузки
  */
 public class LoadingScreen extends ScreenAdapter {

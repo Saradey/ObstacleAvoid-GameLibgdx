@@ -7,9 +7,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Logger;
 
-/**
- * Created by goran on 24/08/2016.
- */
+
 public class DebugCameraConfig {
 
     // == constants ==

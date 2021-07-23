@@ -5,9 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-/**
- * Created by goran on 30/08/2016.
- */
+
 public class AssetDescriptors {
 
     //дескрипторы для описания ресурсов

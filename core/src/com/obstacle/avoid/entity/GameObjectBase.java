@@ -3,9 +3,6 @@ package com.obstacle.avoid.entity;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 
-/**
- * Created by goran on 25/08/2016.
- */
 public abstract class GameObjectBase {
 
     private float x;
