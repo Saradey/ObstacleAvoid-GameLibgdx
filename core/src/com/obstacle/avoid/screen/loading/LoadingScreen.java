@@ -53,6 +53,7 @@ public class LoadingScreen extends ScreenAdapter {
         assetManager.load(AssetDescriptors.GAME_PLAY);
         assetManager.load(AssetDescriptors.FONT);
         assetManager.load(AssetDescriptors.UI);
+        assetManager.load(AssetDescriptors.UI_SKIN);
     }
 
 

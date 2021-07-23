@@ -3,6 +3,7 @@ package com.obstacle.avoid.assets;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * Created by goran on 30/08/2016.
@@ -20,6 +21,8 @@ public class AssetDescriptors {
     public static final AssetDescriptor<TextureAtlas> UI =
             new AssetDescriptor<TextureAtlas>(AssetPaths.UI, TextureAtlas.class);
 
+    public static final AssetDescriptor<Skin> UI_SKIN =
+            new AssetDescriptor<Skin>(AssetPaths.UI_SKIN, Skin.class);
 
     private AssetDescriptors() {
     }
