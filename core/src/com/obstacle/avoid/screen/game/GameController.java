@@ -2,11 +2,15 @@ package com.obstacle.avoid.screen.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
+import com.obstacle.avoid.ObstacleAvoidGame;
+import com.obstacle.avoid.assets.AssetDescriptors;
 import com.obstacle.avoid.common.GameManager;
 import com.obstacle.avoid.config.DifficultyLevel;
 import com.obstacle.avoid.config.GameConfig;
@@ -37,10 +41,13 @@ public class GameController {
     private Background background;
     private final float startPlayerX = (GameConfig.WORLD_WIDTH - GameConfig.PLAYER_SIZE) / 2f;
     private final float startPlayerY = 1 - (GameConfig.PLAYER_SIZE / 2);
+    private Sound soundHit;
+    private final AssetManager assetManager;
 
     // == constructors ==
-    public GameController() {
+    public GameController(ObstacleAvoidGame game) {
         init();
+        assetManager = game.getAssetManager();
     }
 
     // == init ==
@@ -58,6 +65,7 @@ public class GameController {
         background = new Background();
         background.setPosition(0, 0);
         background.setSize(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT);
+        soundHit = assetManager.get(AssetDescriptors.HIT_SOUND);
     }
 
     // == public methods ==
@@ -98,6 +106,7 @@ public class GameController {
     private boolean isPlayerCollidingWithObstacle() {
         for (Obstacle obstacle : obstacles) {
             if (obstacle.isNotHit() && obstacle.isPlayerColliding(player)) {
+                soundHit.play();
                 return true;
             }
         }
