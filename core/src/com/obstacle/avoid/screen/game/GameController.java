@@ -41,7 +41,6 @@ public class GameController {
     private Background background;
     private final float startPlayerX = (GameConfig.WORLD_WIDTH - GameConfig.PLAYER_SIZE) / 2f;
     private final float startPlayerY = 1 - (GameConfig.PLAYER_SIZE / 2);
-    private Sound soundHit;
     private final AssetManager assetManager;
 
     // == constructors ==
@@ -65,7 +64,6 @@ public class GameController {
         background = new Background();
         background.setPosition(0, 0);
         background.setSize(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT);
-        soundHit = assetManager.get(AssetDescriptors.HIT_SOUND);
     }
 
     // == public methods ==
@@ -106,7 +104,6 @@ public class GameController {
     private boolean isPlayerCollidingWithObstacle() {
         for (Obstacle obstacle : obstacles) {
             if (obstacle.isNotHit() && obstacle.isPlayerColliding(player)) {
-                soundHit.play();
                 return true;
             }
         }
