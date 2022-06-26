@@ -1,6 +1,5 @@
 # ObstacleAvoid-GameLibgdx
-
-- Kotlin
+- java
 - Libgdx
 - Scene2d
 - Actor
